@@ -15,5 +15,6 @@ data "cloudflare_account" "zaridias" {
 
 resource "cloudflare_zero_trust_organization" "amg45" {
   name = "amg45coupe"
+  is_ui_read_only = true
   account_id = data.cloudflare_account.zaridias.account_id
 }

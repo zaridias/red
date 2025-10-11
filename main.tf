@@ -12,3 +12,8 @@ data "cloudflare_account" "zaridias" {
     name = "Pridgenryanjeremy@gmail.com"
   }
 }
+
+resource "cloudflare_zero_trust_organization" "amg45" {
+  name = "amg45coupe"
+  account_id = data.cloudflare_account.zaridias.account_id
+}

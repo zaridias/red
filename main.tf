@@ -6,3 +6,9 @@ terraform {
     }
   }
 }
+
+data "cloudflare_account" "zaridias" {
+  filter = {
+    name = "Pridgenryanjeremy@gmail.com"
+  }
+}

@@ -34,3 +34,30 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_virtual_network" "vnet" {
   name = each.key
   account_id = data.cloudflare_account.zaridias.account_id
 }
+
+data "cloudflare_zero_trust_tunnel_cloudflared_virtual_network" "development" {
+  filter = {
+    name = "dev"
+  }
+  account_id = data.cloudflare_account.zaridias.account_id
+}
+
+resource "cloudflare_zero_trust_gateway_policy" "development_allow_github" {
+  account_id  = data.cloudflare_account.zaridias.account_id
+  name        = "Development - Allow Github"
+  description = "Ensure access to the application comes from authorized WARP clients"
+  precedence  = 1000
+  enabled     = true
+  action      = "allow"
+  traffic     = "any(net.sni.domains[*] == \"github.com\")"
+}
+
+resource "cloudflare_zero_trust_gateway_policy" "development_default_block" {
+  account_id  = data.cloudflare_account.zaridias.account_id
+  name        = "Development - Default Block"
+  description = "Ensure access to the application comes from authorized WARP clients"
+  precedence  = 1900
+  enabled     = true
+  action      = "block"
+  traffic     = "any(net.vnet_id == \"${data.cloudflare_zero_trust_tunnel_cloudflared_virtual_network.development.id}\")"
+}

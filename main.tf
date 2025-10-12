@@ -7,6 +7,13 @@ terraform {
   }
 }
 
+locals {
+  virtual_networks = [
+    "dev",
+    "google"
+  ]
+}
+
 data "cloudflare_account" "zaridias" {
   filter = {
     name = "Pridgenryanjeremy@gmail.com"
@@ -19,5 +26,11 @@ resource "cloudflare_zero_trust_organization" "amg45" {
   is_ui_read_only = true
   auto_redirect_to_identity = true
   allow_authenticate_via_warp = true
+  account_id = data.cloudflare_account.zaridias.account_id
+}
+
+resource "cloudflare_zero_trust_tunnel_cloudflared_virtual_network" "vnet" {
+  for_each = toset(local.virtual_networks)
+  name = each.key
   account_id = data.cloudflare_account.zaridias.account_id
 }

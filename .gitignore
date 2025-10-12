@@ -1,0 +1,34 @@
+# Archivos de estado y backups
+*.tfstate
+*.tfstate.*
+# Archivos de estado de estado remoto (si se usa localmente por error)
+.terraform/terraform.tfstate
+
+# Archivos de bloqueo de estado
+*.tfvars.json
+# Bloqueo de estado local
+.terraform/terraform.tfstate.lock.info
+# Bloqueo de plan (plan files)
+*.tfplan
+
+# Directorio de módulos y plugins de Terraform
+# Este directorio contiene todos los plugins del proveedor
+.terraform/
+
+# Directorio para módulos externos
+# Si usas módulos externos, este directorio se llena de código descargado.
+modules/
+
+# Crash log files from Terraform
+crash.log
+
+# Archivos específicos del entorno de desarrollo (si los usas)
+override.tf
+override.tfjson
+*_override.tf
+*_override.tfjson
+
+# Archivos de credenciales (nunca deben subirse)
+# Aunque es mejor usar variables de entorno o un backend seguro, si usas
+# archivos de variables sensibles, ignóralos:
+credentials.tfrc.json

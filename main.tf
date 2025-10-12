@@ -36,7 +36,7 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_virtual_network" "vnet" {
 }
 
 data "cloudflare_zero_trust_tunnel_cloudflared_virtual_network" "development" {
-  filter {
+  filter = {
     name = "dev"
   }
   account_id = data.cloudflare_account.zaridias.account_id
@@ -59,5 +59,5 @@ resource "cloudflare_zero_trust_gateway_policy" "development_default_block" {
   precedence  = 1900
   enabled     = true
   action      = "block"
-  traffic     = "any(net.vnet_id == \"${data.cloudflare_zero_trust_tunnel_cloudflared_virtual_network.id}\")"
+  traffic     = "any(net.vnet_id == \"${data.cloudflare_zero_trust_tunnel_cloudflared_virtual_network.development.id}\")"
 }

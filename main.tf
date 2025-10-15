@@ -48,6 +48,7 @@ resource "cloudflare_zero_trust_device_default_profile" "this" {
     mode = "warp"
     port = 5627
   }
+  warp_mode = "masque"
 }
 
 resource "cloudflare_zero_trust_device_settings" "example_zero_trust_device_settings" {

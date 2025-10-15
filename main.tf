@@ -49,3 +49,12 @@ resource "cloudflare_zero_trust_device_default_profile" "this" {
     port = 5627
   }
 }
+
+resource "cloudflare_zero_trust_device_settings" "example_zero_trust_device_settings" {
+  account_id = data.cloudflare_account.zaridias.account_id
+  disable_for_time = 0
+  gateway_proxy_enabled = true
+  gateway_udp_proxy_enabled = true
+  root_certificate_installation_enabled = true
+  use_zt_virtual_ip = true
+}

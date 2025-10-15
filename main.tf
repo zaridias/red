@@ -44,12 +44,13 @@ resource "cloudflare_zero_trust_device_default_profile" "this" {
   auto_connect = 10
   disable_auto_fallback = true
   exclude = []
-  warp_mode = "masque"
+  switch_locked = true
+  exclude_office_ips = false
+  captive_portal = 1
   service_mode_v2 = {
     mode = "warp"
     port = 5627
   }
-  warp_mode = "masque"
 }
 
 resource "cloudflare_zero_trust_device_settings" "example_zero_trust_device_settings" {

@@ -34,3 +34,17 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_virtual_network" "vnet" {
   name = each.key
   account_id = data.cloudflare_account.zaridias.account_id
 }
+
+resource "cloudflare_zero_trust_device_default_profile" "this" {
+  account_id = data.cloudflare_account.zaridias.account_id
+  allow_mode_switch = false
+  allow_updates = false
+  register_interface_ip_with_dns = true
+  allowed_to_leave = false
+  auto_connect = 10
+  disable_auto_fallback = true
+  exclude = []
+  service_mode_v2 = {
+    port = 5627
+  }
+}

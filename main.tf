@@ -45,7 +45,7 @@ resource "cloudflare_zero_trust_device_default_profile" "this" {
   disable_auto_fallback = true
   exclude = []
   service_mode_v2 = {
-    mode = "warp"
+    mode = "proxy"
     port = 5627
   }
 }

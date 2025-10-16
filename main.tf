@@ -7,6 +7,10 @@ terraform {
   }
 }
 
+variable "cf_account_id" {
+  type = string
+}
+
 locals {
   virtual_networks = [
     "dev",
@@ -26,17 +30,17 @@ resource "cloudflare_zero_trust_organization" "amg45" {
   is_ui_read_only = true
   auto_redirect_to_identity = true
   allow_authenticate_via_warp = true
-  account_id = data.cloudflare_account.zaridias.account_id
+  account_id = var.cf_account_id
 }
 
 resource "cloudflare_zero_trust_tunnel_cloudflared_virtual_network" "vnet" {
   for_each = toset(local.virtual_networks)
   name = each.key
-  account_id = data.cloudflare_account.zaridias.account_id
+  account_id = var.cf_account_id
 }
 
 resource "cloudflare_zero_trust_device_default_profile" "this" {
-  account_id = data.cloudflare_account.zaridias.account_id
+  account_id = var.cf_account_id
   allow_mode_switch = false
   allow_updates = false
   register_interface_ip_with_dns = true
@@ -46,15 +50,13 @@ resource "cloudflare_zero_trust_device_default_profile" "this" {
   exclude = []
   switch_locked = true
   exclude_office_ips = false
-  captive_portal = 1
   service_mode_v2 = {
     mode = "warp"
-    port = 5627
   }
 }
 
 resource "cloudflare_zero_trust_device_settings" "example_zero_trust_device_settings" {
-  account_id = data.cloudflare_account.zaridias.account_id
+  account_id = var.cf_account_id
   disable_for_time = 0
   gateway_proxy_enabled = true
   gateway_udp_proxy_enabled = true

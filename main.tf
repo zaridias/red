@@ -25,8 +25,8 @@ data "cloudflare_account" "zaridias" {
 }
 
 resource "cloudflare_zero_trust_organization" "amg45" {
-  name = "ryanjeremypridgen_personal"
-  auth_domain = "amg45coupe.cloudflareaccess.com"
+  name = "ryanjeremypridgen"
+  auth_domain = "ryanjeremypridgen.cloudflareaccess.com"
   is_ui_read_only = true
   auto_redirect_to_identity = true
   allow_authenticate_via_warp = true
